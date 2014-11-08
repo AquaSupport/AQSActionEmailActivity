@@ -23,19 +23,36 @@ Advanced Usage
 To set a title, include `AQSEmailActivityTitle` objects in `activityItems`.
 
 ```objc
-NSArray *activityItems = @[[AQSEmailActivityTitle titleWithTitle:@"Title!"], @"Body!"];
+NSArray *activityItems = @[
+	[AQSEmailActivityTitle titleWithTitle:@"Title!"],
+	@"Body!"
+];
 ```
 
 And to set recipients, include `AQSEmailActivityRecipient` objects in `activityItems`.
 
 ```objc 
-NSArray *activityItems = @[[AQSEmailActivityRecipient recipientWithEmailAddress:@"some@example.com"]];
+NSArray *activityItems = @[
+	[AQSEmailActivityRecipient recipientWithEmailAddress:@"some@example.com"]
+];
 ```
 
 To set CC or BCC recipients, just specify recipient's type.
 
 ```objc
-NSArray *activityItems = @[[AQSEmailActivityRecipient recipientWithEmailAddress:@"some@example.com" withType:AQSEmailActivityTypeCC]];
+NSArray *activityItems = @[
+	[AQSEmailActivityRecipient recipientWithEmailAddress:@"some@example.com" withType:AQSEmailActivityTypeCC]
+];
+```
+
+Combile all of them, you can represent an email whose title is `Title`, body is `Body`, to is `example@example.com` as follows.
+
+```objc
+NSArray *activityItems = @[
+	[AQSEmailActivityTitle titleWithTitle:@"Title"],
+	[AQSEmailActivityRecipient recipientWithEmailAddress:@"example@example.com"],
+	@"Body"
+];
 ```
 
 Installation
@@ -44,6 +61,11 @@ Installation
 ```
 pod "AQSActionEmailActivity"
 ```
+
+Link to Documents
+---
+
+https://dl.dropboxusercontent.com/u/7817937/___doc___AQSActionEmailActivity/html/index.html
 
 Related Projects
 ---
