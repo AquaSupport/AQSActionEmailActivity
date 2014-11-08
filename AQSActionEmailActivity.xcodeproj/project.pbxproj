@@ -16,6 +16,8 @@
 		D42B17D51A0E62F300A64B1A /* AQSActionEmailActivityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D42B17D41A0E62F300A64B1A /* AQSActionEmailActivityTests.m */; };
 		D42B17E01A0E654E00A64B1A /* AQSActionEmailActivity.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D42B17DF1A0E654E00A64B1A /* AQSActionEmailActivity.xcassets */; };
 		D42B17E31A0E655400A64B1A /* AQSActionEmailActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D42B17E21A0E655400A64B1A /* AQSActionEmailActivity.m */; };
+		D42B17E61A0E6F3B00A64B1A /* AQSEmailActivityTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = D42B17E51A0E6F3B00A64B1A /* AQSEmailActivityTitle.m */; };
+		D42B17E91A0E708E00A64B1A /* AQSEmailActivityRecipient.m in Sources */ = {isa = PBXBuildFile; fileRef = D42B17E81A0E708E00A64B1A /* AQSEmailActivityRecipient.m */; };
 		FA19619FB4D92E6FC587677D /* libPods-AQSActionEmailActivityTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03A9A79E79D61512573B238E /* libPods-AQSActionEmailActivityTests.a */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +51,10 @@
 		D42B17DF1A0E654E00A64B1A /* AQSActionEmailActivity.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AQSActionEmailActivity.xcassets; sourceTree = "<group>"; };
 		D42B17E11A0E655400A64B1A /* AQSActionEmailActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQSActionEmailActivity.h; sourceTree = "<group>"; };
 		D42B17E21A0E655400A64B1A /* AQSActionEmailActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AQSActionEmailActivity.m; sourceTree = "<group>"; };
+		D42B17E41A0E6F3B00A64B1A /* AQSEmailActivityTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQSEmailActivityTitle.h; sourceTree = "<group>"; };
+		D42B17E51A0E6F3B00A64B1A /* AQSEmailActivityTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AQSEmailActivityTitle.m; sourceTree = "<group>"; };
+		D42B17E71A0E708E00A64B1A /* AQSEmailActivityRecipient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQSEmailActivityRecipient.h; sourceTree = "<group>"; };
+		D42B17E81A0E708E00A64B1A /* AQSEmailActivityRecipient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AQSEmailActivityRecipient.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +161,10 @@
 				D42B17DF1A0E654E00A64B1A /* AQSActionEmailActivity.xcassets */,
 				D42B17E11A0E655400A64B1A /* AQSActionEmailActivity.h */,
 				D42B17E21A0E655400A64B1A /* AQSActionEmailActivity.m */,
+				D42B17E41A0E6F3B00A64B1A /* AQSEmailActivityTitle.h */,
+				D42B17E51A0E6F3B00A64B1A /* AQSEmailActivityTitle.m */,
+				D42B17E71A0E708E00A64B1A /* AQSEmailActivityRecipient.h */,
+				D42B17E81A0E708E00A64B1A /* AQSEmailActivityRecipient.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -295,10 +305,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D42B17E61A0E6F3B00A64B1A /* AQSEmailActivityTitle.m in Sources */,
 				D42B17C11A0E62F300A64B1A /* ViewController.m in Sources */,
 				D42B17BE1A0E62F300A64B1A /* AppDelegate.m in Sources */,
 				D42B17BB1A0E62F300A64B1A /* main.m in Sources */,
 				D42B17E31A0E655400A64B1A /* AQSActionEmailActivity.m in Sources */,
+				D42B17E91A0E708E00A64B1A /* AQSEmailActivityRecipient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,6 +433,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = AQSActionEmailActivity/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -431,6 +444,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = AQSActionEmailActivity/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

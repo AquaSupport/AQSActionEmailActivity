@@ -12,6 +12,8 @@
 
 #import "AQSActionEmailActivity.h"
 #import <MessageUI/MessageUI.h>
+#import "AQSEmailActivityTitle.h"
+#import "AQSEmailActivityRecipient.h"
 
 @interface AQSActionEmailActivity (Test) <MFMailComposeViewControllerDelegate>
 
@@ -126,6 +128,90 @@
     
     [[composeViewControllerMock expect] addAttachmentData:[OCMArg any] mimeType:@"image/png" fileName:@"image.png"];
     [[composeViewControllerMock expect] setMessageBody:@"whoa http://google.com/" isHTML:NO];
+    
+    [_activity viewControllerWithConposeViewComtroller:composeViewControllerMock];
+    
+    [composeViewControllerMock verify];
+}
+
+- (void)testItSetsTitleWithTitle {
+    id composeViewControllerMock = [OCMockObject niceMockForClass:[MFMailComposeViewController class]];
+    NSArray *activityItems = @[[AQSEmailActivityTitle titleWithTitle:@"title"]];
+    [_activity prepareWithActivityItems:activityItems];
+    
+    [[composeViewControllerMock expect] setTitle:@"title"];
+    
+    [_activity viewControllerWithConposeViewComtroller:composeViewControllerMock];
+    
+    [composeViewControllerMock verify];
+}
+
+- (void)testItSetsRecipientWithARecipient {
+    id composeViewControllerMock = [OCMockObject niceMockForClass:[MFMailComposeViewController class]];
+    NSArray *activityItems = @[[AQSEmailActivityRecipient recipientWithEmailAddress:@"lied.der.optik@gmail.com"]];
+    [_activity prepareWithActivityItems:activityItems];
+    
+    [[composeViewControllerMock expect] setToRecipients:@[@"lied.der.optik@gmail.com"]];
+    
+    [_activity viewControllerWithConposeViewComtroller:composeViewControllerMock];
+    
+    [composeViewControllerMock verify];
+}
+
+- (void)testItSetsRecipientWithSomeRecipients {
+    id composeViewControllerMock = [OCMockObject niceMockForClass:[MFMailComposeViewController class]];
+    NSArray *activityItems = @[[AQSEmailActivityRecipient recipientWithEmailAddress:@"lied.der.optik@gmail.com"], [AQSEmailActivityRecipient recipientWithEmailAddress:@"lied.der.optik+1@gmail.com"]];
+    [_activity prepareWithActivityItems:activityItems];
+    
+    [[composeViewControllerMock expect] setToRecipients:@[@"lied.der.optik@gmail.com", @"lied.der.optik+1@gmail.com"]];
+    
+    [_activity viewControllerWithConposeViewComtroller:composeViewControllerMock];
+    
+    [composeViewControllerMock verify];
+}
+
+- (void)testItSetsRecipientWithACCRecipient {
+    id composeViewControllerMock = [OCMockObject niceMockForClass:[MFMailComposeViewController class]];
+    NSArray *activityItems = @[[AQSEmailActivityRecipient recipientWithEmailAddress:@"lied.der.optik@gmail.com" withRecipientType:AQSEmailActivityRecipientTypeCC]];
+    [_activity prepareWithActivityItems:activityItems];
+    
+    [[composeViewControllerMock expect] setCcRecipients:@[@"lied.der.optik@gmail.com"]];
+    
+    [_activity viewControllerWithConposeViewComtroller:composeViewControllerMock];
+    
+    [composeViewControllerMock verify];
+}
+
+- (void)testItSetsRecipientWithSomeCCRecipients {
+    id composeViewControllerMock = [OCMockObject niceMockForClass:[MFMailComposeViewController class]];
+    NSArray *activityItems = @[[AQSEmailActivityRecipient recipientWithEmailAddress:@"lied.der.optik@gmail.com" withRecipientType:AQSEmailActivityRecipientTypeCC], [AQSEmailActivityRecipient recipientWithEmailAddress:@"lied.der.optik+1@gmail.com" withRecipientType:AQSEmailActivityRecipientTypeCC]];
+    [_activity prepareWithActivityItems:activityItems];
+    
+    [[composeViewControllerMock expect] setCcRecipients:@[@"lied.der.optik@gmail.com", @"lied.der.optik+1@gmail.com"]];
+    
+    [_activity viewControllerWithConposeViewComtroller:composeViewControllerMock];
+    
+    [composeViewControllerMock verify];
+}
+
+- (void)testItSetsRecipientWithABCCRecipient {
+    id composeViewControllerMock = [OCMockObject niceMockForClass:[MFMailComposeViewController class]];
+    NSArray *activityItems = @[[AQSEmailActivityRecipient recipientWithEmailAddress:@"lied.der.optik@gmail.com" withRecipientType:AQSEmailActivityRecipientTypeBCC]];
+    [_activity prepareWithActivityItems:activityItems];
+    
+    [[composeViewControllerMock expect] setBccRecipients:@[@"lied.der.optik@gmail.com"]];
+    
+    [_activity viewControllerWithConposeViewComtroller:composeViewControllerMock];
+    
+    [composeViewControllerMock verify];
+}
+
+- (void)testItSetsRecipientWithSomeBCCRecipients {
+    id composeViewControllerMock = [OCMockObject niceMockForClass:[MFMailComposeViewController class]];
+    NSArray *activityItems = @[[AQSEmailActivityRecipient recipientWithEmailAddress:@"lied.der.optik@gmail.com" withRecipientType:AQSEmailActivityRecipientTypeBCC], [AQSEmailActivityRecipient recipientWithEmailAddress:@"lied.der.optik+1@gmail.com" withRecipientType:AQSEmailActivityRecipientTypeBCC]];
+    [_activity prepareWithActivityItems:activityItems];
+    
+    [[composeViewControllerMock expect] setBccRecipients:@[@"lied.der.optik@gmail.com", @"lied.der.optik+1@gmail.com"]];
     
     [_activity viewControllerWithConposeViewComtroller:composeViewControllerMock];
     

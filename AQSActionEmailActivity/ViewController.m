@@ -28,7 +28,7 @@
     NSArray *items = @[
                        @"hoge",
                        [NSURL URLWithString:@"http://google.com/"],
-                       [UIImage imageNamed:@"color_AQSActionEmailActivity"]
+                       [UIImage imageNamed:@"AQSActionEmailActivity"]
                        ];
     
     UIActivityViewController *viewController = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[activity]];

@@ -9,6 +9,8 @@
 #import "AQSActionEmailActivity.h"
 
 #import <MessageUI/MessageUI.h>
+#import "AQSEmailActivityTitle.h"
+#import "AQSEmailActivityRecipient.h"
 
 @interface AQSActionEmailActivity () <MFMailComposeViewControllerDelegate>
 
@@ -48,7 +50,7 @@
 - (UIViewController *)activityViewController {
     _viewController = [[MFMailComposeViewController alloc] init];
     _viewController.mailComposeDelegate = self;
-    return _viewController;
+    return [self viewControllerWithConposeViewComtroller:_viewController];
 }
 
 # pragma mark - Helper (Array)
@@ -80,6 +82,58 @@
     return nil;
 }
 
+- (AQSEmailActivityTitle *)nilOrFirstTitleFromArray:(NSArray *)array {
+    for (id item in array) {
+        if ([item isKindOfClass:[AQSEmailActivityTitle class]]) {
+            return item;
+        }
+    }
+    return nil;
+}
+
+- (NSOrderedSet *)emptyOrderedSetOrRecipientsFromArray:(NSArray *)array {
+    NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] init];
+    for (id item in array) {
+        if ([item isKindOfClass:[AQSEmailActivityRecipient class]]) {
+            [set addObject:item];
+        }
+    }
+    return set;
+}
+
+- (NSOrderedSet *)emptyOrderedSetOrTypedRecipientsFromOrderedSet:(NSOrderedSet /* AQSEmailActivityRecipient */ *)set withType:(AQSEmailActivityRecipientType)type {
+    NSMutableOrderedSet *recipients = [[NSMutableOrderedSet alloc] init];
+    for (AQSEmailActivityRecipient *recipient in set) {
+        if (recipient.type == type) {
+            [recipients addObject:recipient];
+        }
+    }
+    return recipients;
+}
+
+- (NSOrderedSet *)emptyOrderedSetOrToRecipientsFromArray:(NSArray *)array {
+    NSOrderedSet *set = [self emptyOrderedSetOrRecipientsFromArray:array];
+    return [self emptyOrderedSetOrTypedRecipientsFromOrderedSet:set withType:AQSEmailActivityRecipientTypeTo];
+}
+
+- (NSOrderedSet *)emptyOrderedSetOrCCRecipientsFromArray:(NSArray *)array {
+    NSOrderedSet *set = [self emptyOrderedSetOrRecipientsFromArray:array];
+    return [self emptyOrderedSetOrTypedRecipientsFromOrderedSet:set withType:AQSEmailActivityRecipientTypeCC];
+}
+
+- (NSOrderedSet *)emptyOrderedSetOrBCCRecipientsFromArray:(NSArray *)array {
+    NSOrderedSet *set = [self emptyOrderedSetOrRecipientsFromArray:array];
+    return [self emptyOrderedSetOrTypedRecipientsFromOrderedSet:set withType:AQSEmailActivityRecipientTypeBCC];
+}
+
+- (NSArray *)emailAddressArrayFromRecipients:(id<NSFastEnumeration> /* AQSEmailActivityRecipient */)recipients {
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (AQSEmailActivityRecipient *recipient in recipients) {
+        [array addObject:recipient.email];
+    }
+    return array;
+}
+
 # pragma mark - Helper (Email)
 
 - (BOOL)isAvailableForEmail {
@@ -92,6 +146,26 @@
     NSString *text= [self nilOrFirstStringFromArray:_activityItems];
     NSURL *URL = [self nilOrFirstURLFromArray:_activityItems];
     UIImage *image = [self nilOrFirstImageFromArray:_activityItems];
+    AQSEmailActivityTitle *title = [self nilOrFirstTitleFromArray:_activityItems];
+    NSOrderedSet *toRecipients = [self emptyOrderedSetOrToRecipientsFromArray:_activityItems];
+    NSOrderedSet *ccRecipients = [self emptyOrderedSetOrCCRecipientsFromArray:_activityItems];
+    NSOrderedSet *bccRecipients = [self emptyOrderedSetOrBCCRecipientsFromArray:_activityItems];
+    
+    if (toRecipients.count > 0) {
+        [viewController setToRecipients:[self emailAddressArrayFromRecipients:toRecipients]];
+    }
+    
+    if (ccRecipients.count > 0) {
+        [viewController setCcRecipients:[self emailAddressArrayFromRecipients:ccRecipients]];
+    }
+    
+    if (bccRecipients.count > 0) {
+        [viewController setBccRecipients:[self emailAddressArrayFromRecipients:bccRecipients]];
+    }
+    
+    if (!!title) {
+        [viewController setTitle:title.title];
+    }
     
     if (!!image) {
         [viewController addAttachmentData:UIImagePNGRepresentation(image) mimeType:@"image/png" fileName:@"image.png"];
