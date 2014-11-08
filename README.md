@@ -1,6 +1,8 @@
 AQSActionEmailActivity
 ======================
 
+![](http://img.shields.io/cocoapods/v/AQSActionEmailActivity.svg?style=flat) [![Build Status](https://travis-ci.org/AquaSupport/AQSActionEmailActivity.svg?branch=master)](https://travis-ci.org/AquaSupport/AQSActionEmailActivity) 
+
 [iOS] `UIActivity` class for Email that appears in Action category in `UIActivityViewController`
 
 ```
